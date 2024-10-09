@@ -7,4 +7,5 @@ Rails.application.routes.draw do
     post :assign, to: 'devices#assign'
     post :unassign, to: 'devices#unassign'
   end
+   get '/devices', to: 'devices#index'
 end

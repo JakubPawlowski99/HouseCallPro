@@ -7,3 +7,16 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+users = User.create!([
+  { email: 'jan.nowak@gmail.com', password: 'password123', password_confirmation: 'password123' },
+  { email: 'anna.lesniczak@gmail.com', password: 'password123', password_confirmation: 'password123' },
+  { email: 'ryszard.paz@gmail.com', password: 'password123', password_confirmation: 'password123' }
+])
+
+
+devices = Device.create!([
+  { serial_number: 'DEVICE123' },
+  { serial_number: 'DEVICE456' },
+  { serial_number: 'DEVICE789' }
+])

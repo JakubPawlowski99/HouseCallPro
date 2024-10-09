@@ -579,3 +579,82 @@ Started GET "/stylesheets/application.css" for 127.0.0.1 at 2024-10-09 19:50:05 
   
 ActionController::RoutingError (No route matches [GET] "/stylesheets/application.css"):
   
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddUserIdToDevices (20241009211904)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (4.1ms)[0m  [1m[35mALTER TABLE "devices" ADD "user_id" integer[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241009211904') RETURNING "version"[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2024-10-09 23:23:09 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.6ms | Allocations: 195)
+  Rendered layout layouts/application.html.erb (Duration: 1.8ms | Allocations: 678)
+Completed 200 OK in 45ms (Views: 20.4ms | ActiveRecord: 0.0ms | Allocations: 5566)
+
+
+Started GET "/stylesheets/application.css" for 127.0.0.1 at 2024-10-09 23:23:10 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/stylesheets/application.css"):
+  
+Started GET "/devices" for 127.0.0.1 at 2024-10-09 23:23:14 +0200
+Processing by DevicesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devices/index.html.erb within layouts/application
+  Rendered devices/index.html.erb within layouts/application (Duration: 2.3ms | Allocations: 975)
+  Rendered layout layouts/application.html.erb (Duration: 2.7ms | Allocations: 1060)
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.0ms | Allocations: 1473)
+
+
+  
+ActionView::Template::Error (undefined method `each' for nil:NilClass):
+    4:   <div>
+    5:     <label for="user_id">Select User:</label>
+    6:     <select name="user_id" id="user_id">
+    7:       <% @users.each do |user| %>
+    8:         <option value="<%= user.id %>"><%= user.email %></option>
+    9:       <% end %>
+   10:     </select>
+  
+app/views/devices/index.html.erb:7
+app/views/devices/index.html.erb:3
+Started GET "/devices" for 127.0.0.1 at 2024-10-09 23:25:13 +0200
+Processing by DevicesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devices/index.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/devices/index.html.erb:7
+  [1m[36mDevice Load (0.1ms)[0m  [1m[34mSELECT "devices".* FROM "devices" WHERE "devices"."user_id" IS NULL[0m
+  ↳ app/views/devices/index.html.erb:16
+  Rendered devices/index.html.erb within layouts/application (Duration: 2.6ms | Allocations: 1483)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | Allocations: 1837)
+Completed 200 OK in 93ms (Views: 7.5ms | ActiveRecord: 2.7ms | Allocations: 18307)
+
+
+Started GET "/stylesheets/application.css" for 127.0.0.1 at 2024-10-09 23:25:13 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/stylesheets/application.css"):
+  
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["email", "john.doe@example.com"], ["password_digest", "[FILTERED]"], ["created_at", "2024-10-09 21:26:39.221016"], ["updated_at", "2024-10-09 21:26:39.221016"]]
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["email", "jane.smith@example.com"], ["password_digest", "[FILTERED]"], ["created_at", "2024-10-09 21:26:39.387412"], ["updated_at", "2024-10-09 21:26:39.387412"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["email", "alice.jones@example.com"], ["password_digest", "[FILTERED]"], ["created_at", "2024-10-09 21:26:39.549610"], ["updated_at", "2024-10-09 21:26:39.549610"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDevice Create (0.6ms)[0m  [1m[32mINSERT INTO "devices" ("serial_number", "created_at", "updated_at", "user_id") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["serial_number", "ABC123"], ["created_at", "2024-10-09 21:26:39.564037"], ["updated_at", "2024-10-09 21:26:39.564037"], ["user_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDevice Create (0.6ms)[0m  [1m[32mINSERT INTO "devices" ("serial_number", "created_at", "updated_at", "user_id") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["serial_number", "XYZ456"], ["created_at", "2024-10-09 21:26:39.566255"], ["updated_at", "2024-10-09 21:26:39.566255"], ["user_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDevice Create (0.7ms)[0m  [1m[32mINSERT INTO "devices" ("serial_number", "created_at", "updated_at", "user_id") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["serial_number", "LMN789"], ["created_at", "2024-10-09 21:26:39.568364"], ["updated_at", "2024-10-09 21:26:39.568364"], ["user_id", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m

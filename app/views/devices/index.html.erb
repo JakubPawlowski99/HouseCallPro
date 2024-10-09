@@ -1,0 +1,23 @@
+<h1>Assign Device to User</h1>
+
+<%= form_with url: assign_path, method: :post do |f| %>
+  <div>
+    <label for="user_id">Select User:</label>
+    <select name="user_id" id="user_id">
+      <% @users.each do |user| %>
+        <option value="<%= user.id %>"><%= user.email %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div>
+    <label for="device_id">Select Device:</label>
+    <select name="device_id" id="device_id">
+      <% @devices.each do |device| %>
+        <option value="<%= device.id %>"><%= device.serial_number %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <%= f.submit "Assign Device" %>
+<% end %>
